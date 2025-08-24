@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { supabase } from '../services/supabaseClient';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { supabase } from "../../services/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 const UserRegistration = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [displayName, setDisplayName] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [displayName, setDisplayName] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -24,10 +24,11 @@ const UserRegistration = () => {
       if (error) {
         throw error;
       }
-      
-      alert('Cadastro realizado com sucesso! Verifique seu e-mail para confirmar a conta.');
-      navigate('/'); // Redireciona para a página de login
-      
+
+      alert(
+        "Cadastro realizado com sucesso! Verifique seu e-mail para confirmar a conta."
+      );
+      navigate("/"); // Redireciona para a página de login
     } catch (error: any) {
       alert(error.message);
     }

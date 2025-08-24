@@ -1,9 +1,9 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import ProductList from "./pages/ProductList";
-import ProductRegistration from "./pages/ProductRegistration";
-import UserRegistration from "./pages/UserRegistration";
+import Login from "./pages/Login/Login";
+import ProductList from "./pages/ProductList/ProductList";
+import ProductRegistration from "./pages/ProductRegistration/ProductRegistration";
+import UserRegistration from "./pages/UserRegistration/UserRegistration";
 
 const App = () => {
   return (
