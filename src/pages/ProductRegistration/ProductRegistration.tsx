@@ -24,20 +24,40 @@ const ProductRegistration = () => {
     }
 
     try {
+      // Obter o ID do usuário autenticado
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError || !session) throw new Error("Usuário não autenticado.");
+      
+      // Salvar o ID do usuário atual
+      const userId = session.user.id;
+
+      // Gerar um UUID para o produto
+      const productId = crypto.randomUUID();
+
+      // Fazer o upload da imagem usando o novo UUID no nome do arquivo
+      const fileExtension = imageFile.name.split('.').pop(); // Separa o nome em partes por array dividido pelo . e retorna o ultimo array
+      const newFileName = `${productId}.${fileExtension}`;
+
+      // Enviando a imagem ao bucket
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from("product_images")
-        .upload(`public/${imageFile.name}`, imageFile);
+        .upload(`${category}/${newFileName}`, imageFile);
 
       if (uploadError) throw uploadError;
 
+      // Gerando a URL publica para visualização
       const { data: publicUrlData } = supabase.storage
         .from("product_images")
         .getPublicUrl(uploadData.path);
 
+      // salvando a URL publica
       const imageUrl = publicUrlData.publicUrl;
 
+      // Inserir o produto no banco de dados com os novos dados
       const { error: dbError } = await supabase.from("products").insert([
         {
+          id: productId, // Vincula o ID único
+          user_id: userId, // Vincula o ID do usuário autenticado
           title,
           description,
           price: parseFloat(price),

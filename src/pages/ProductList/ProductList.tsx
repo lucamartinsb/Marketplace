@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { supabase } from "../../services/supabaseClient";
 import { Link } from "react-router-dom";
 import type { Product } from "../../types";
+import './ProductList.css'
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -10,11 +11,7 @@ const ProductList = () => {
     "all" | "ativo" | "inativo" | "vendido"
   >("all");
 
-  useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts, statusFilter]);
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     let query = supabase.from("products").select("*");
     if (statusFilter !== "all") {
       query = query.eq("status", statusFilter);
@@ -22,10 +19,15 @@ const ProductList = () => {
     const { data, error } = await query;
     if (error) {
       console.error("Erro ao buscar produtos:", error);
+      // Você pode adicionar um estado para exibir uma mensagem de erro na UI
       return;
     }
     setProducts(data as Product[]);
-  };
+  }, [statusFilter]); // A função só será recriada quando o statusFilter mudar
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]); // O useEffect agora depende da função memorizada
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) =>
@@ -35,7 +37,7 @@ const ProductList = () => {
 
   return (
     <div className="product-list-container">
-      <h2>Lista de Produtos</h2>
+      <h2>Seus Produtos</h2>
       <div className="controls">
         <input
           type="text"
@@ -45,7 +47,9 @@ const ProductList = () => {
         />
         <select
           value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value as any)}
+          onChange={(e) =>
+            setStatusFilter(e.target.value as "all" | "ativo" | "inativo" | "vendido")
+          }
         >
           <option value="all">Todos</option>
           <option value="ativo">Ativo</option>

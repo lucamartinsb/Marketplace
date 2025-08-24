@@ -11,14 +11,9 @@ const UserRegistration = () => {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          data: {
-            display_name: displayName,
-          },
-        },
       });
 
       if (error) {
@@ -39,14 +34,6 @@ const UserRegistration = () => {
       <h2>Criar Nova Conta</h2>
       <form onSubmit={handleSignUp}>
         <div className="input-group">
-          <label htmlFor="displayName">Seu nome: </label>
-          <input
-            type="text"
-            id="displayName"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-            required
-          />
         </div>
         <div className="input-group">
           <label htmlFor="email">Seu email: </label>
