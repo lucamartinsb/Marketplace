@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { supabase } from "../../services/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
-// import "./Login.css";
+import "./Login.css";
+import emailIcon from "../../assets/email.png";
+import senhaIcon from "../../assets/senha.png";
+import arrowRightOrange from "../../assets/arrowRightOrange.png";
+import arrowRightWhite from "../../assets/arrowRightWhite.png";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -27,16 +31,16 @@ const Login = () => {
   };
 
   return (
-    <div className="content">
-      <div className="left-content">
-    <h1>OOOOOOOOOOOOI</h1>
-      </div>
-      <div className="login-container">
+    <div className="main-container">
+      <div className="title-container">
         <h1>Acesse sua conta</h1>
         <h2>Informe seu e-mail e senha para entrar</h2>
-        <form onSubmit={handleLogin}>
-          <div className="input-group">
-            <label htmlFor="email">E-MAIL</label>
+      </div>
+      <form onSubmit={handleLogin}>
+        <div className="input-group">
+          <label htmlFor="email">E-MAIL</label>
+          <div className="inputContainer">
+            <img src={emailIcon} alt="" />
             <input
               placeholder="Seu email cadastrado"
               type="email"
@@ -46,8 +50,11 @@ const Login = () => {
               required
             />
           </div>
-          <div className="input-group">
-            <label htmlFor="password">SENHA</label>
+        </div>
+        <div className="input-group">
+          <label htmlFor="password">SENHA</label>
+          <div className="inputContainer">
+            <img src={senhaIcon} />
             <input
               placeholder="Sua senha de acesso"
               type="password"
@@ -57,13 +64,20 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit">Entrar</button>
-        </form>
-        <div className="signup-link">
-          <p>
-            Não tem uma conta? <Link to="/signup">Crie uma conta aqui</Link>
-          </p>
         </div>
+        <button type="submit">
+          Acessar <img src={arrowRightWhite} />
+        </button>
+      </form>
+
+      <div className="signup-link">
+        <p>Não tem uma conta?</p>
+        <Link id="link" to="/signup">
+          <button>
+            Cadastrar
+            <img src={arrowRightOrange} />
+          </button>
+        </Link>
       </div>
     </div>
   );
