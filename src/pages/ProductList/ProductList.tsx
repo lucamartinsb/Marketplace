@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { supabase } from "../../services/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
 import type { Product } from "../../types";
@@ -44,6 +44,25 @@ const ProductList = () => {
     }
   };
 
+  // Estados para o tooltip
+  const [showTooltip, setShowTooltip] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Funções para o tooltip
+  const handleMouseEnter = () => {
+    // Inicia um timer quando o mouse entra no botão
+    timeoutRef.current = setTimeout(() => {
+      setShowTooltip(true);
+    }, 7000); // 7000 ms = 7 segundos
+  };
+  const handleMouseLeave = () => {
+    // Limpa o timer e esconde o tooltip quando o mouse sai
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setShowTooltip(false);
+  };
+
   const filteredProducts = useMemo(() => {
     return products.filter((product) =>
       product.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -86,10 +105,20 @@ const ProductList = () => {
               </select>
             </div>
           </div>
-
-          <Link to="/add-product" className="new-product-link">
-            <button>Novo Produto</button>
-          </Link>
+          <div
+            className="tooltip-container"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Link to="/add-product" className="new-product-link">
+              <button>Novo Produto</button>
+            </Link>
+            {showTooltip && (
+              <span className="tooltip-text">
+                Tá esperando o quê? Boraa moeer!! 🚀
+              </span>
+            )}
+          </div>
           <div className="logout-button-container">
             <button onClick={handleLogout} className="logout-button">
               Sair
