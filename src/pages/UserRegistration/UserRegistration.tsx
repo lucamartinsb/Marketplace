@@ -45,7 +45,7 @@ const UserRegistration = () => {
     <div className="main-container2">
       <div className="title-container">
         <h1>Crie sua Conta</h1>
-        <h2>Informe seus dados pessoais e de acesso</h2>
+        <p>Informe seus dados pessoais e de acesso</p>
       </div>
       <form onSubmit={handleSignUp}>
         <h3>Perfil</h3>
@@ -76,7 +76,7 @@ const UserRegistration = () => {
           </div>
         </div>
         <div className="input-group">
-          <h2>Acesso</h2>
+          <h3>Acesso</h3>
           <label htmlFor="email">Seu email:</label>
           <div className="inputContainer">
             <img src={emailIcon} />
@@ -105,7 +105,7 @@ const UserRegistration = () => {
           </div>
         </div>
         <button type="submit">
-          Cadastrar<img src={arrowRightWhite}></img>
+          Cadastrar <img src={arrowRightWhite}/>
         </button>
       </form>
       <div className="signup-link">

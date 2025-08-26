@@ -21,10 +21,11 @@ h2 {
 }
 
 p {
-  font-family: "Poppins", sans-serif !important;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 400;
   color: #666666;
+  text-align: start;
 }
 
 .main-container {
@@ -47,7 +48,8 @@ p {
 form {
   display: flex;
   flex-direction: column;
-  height: 60%;
+  height: 50%;
+  width: 100%;
 }
 
 label {
@@ -80,7 +82,6 @@ input {
   font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 400;
-  width: 403px;
   height: 48px;
   border: none;
   background-color: inherit;

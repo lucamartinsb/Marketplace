@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { supabase } from "../../services/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import "../../styles/style.css"
+import "./ProductRegistration.css"
 
 const ProductRegistration = () => {
   const [title, setTitle] = useState("");

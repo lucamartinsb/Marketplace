@@ -34,7 +34,7 @@ const Login = () => {
     <div className="main-container">
       <div className="title-container">
         <h1>Acesse sua conta</h1>
-        <h2>Informe seu e-mail e senha para entrar</h2>
+        <p>Informe seu e-mail e senha para entrar</p>
       </div>
       <form onSubmit={handleLogin}>
         <div className="input-group">
