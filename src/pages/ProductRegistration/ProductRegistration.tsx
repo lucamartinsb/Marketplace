@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { supabase } from "../../services/supabaseClient";
 import { useNavigate } from "react-router-dom";
-import "../../styles/style.css"
-import "./ProductRegistration.css"
+import "../../styles/style.css";
+import "./ProductRegistration.css";
 
 const ProductRegistration = () => {
   const [title, setTitle] = useState("");
@@ -27,9 +27,12 @@ const ProductRegistration = () => {
 
     try {
       // Obter o ID do usuário autenticado
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
       if (sessionError || !session) throw new Error("Usuário não autenticado.");
-      
+
       // Salvar o ID do usuário atual
       const userId = session.user.id;
 
@@ -37,7 +40,7 @@ const ProductRegistration = () => {
       const productId = crypto.randomUUID();
 
       // Fazer o upload da imagem usando o novo UUID no nome do arquivo
-      const fileExtension = imageFile.name.split('.').pop(); // Separa o nome em partes por array dividido pelo . e retorna o ultimo array
+      const fileExtension = imageFile.name.split(".").pop(); // Separa o nome em partes por array dividido pelo . e retorna o ultimo array
       const newFileName = `${productId}.${fileExtension}`;
 
       // Enviando a imagem ao bucket
@@ -80,46 +83,54 @@ const ProductRegistration = () => {
 
   return (
     <div className="registration-container">
-      <h2>Cadastrar Novo Produto</h2>
+      <h1>Cadastrar Novo Produto</h1>
       <form onSubmit={handleSubmit} className="product-form">
         <div className="input-group">
           <label htmlFor="title">Título</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
+          <div className="inputContainer">
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
         </div>
         <div className="input-group">
           <label htmlFor="description">Descrição</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
+          <div className="inputContainer">
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+          </div>
         </div>
         <div className="input-group">
           <label htmlFor="price">Valor</label>
-          <input
-            type="number"
-            id="price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-          />
+          <div className="inputContainer">
+            <input
+              type="number"
+              id="price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+          </div>
         </div>
         <div className="input-group">
           <label htmlFor="category">Categoria</label>
-          <input
-            type="text"
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          />
+          <div className="inputContainer">
+            <input
+              type="text"
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            />
+          </div>
         </div>
         <div className="input-group">
           <label htmlFor="image">Imagem do Produto</label>
