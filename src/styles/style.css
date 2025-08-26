@@ -68,10 +68,10 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button[type="submit"] {
+/* button[type="submit"] {
   background-color: var(--primary-orange);
   color: white;
-}
+} */
 
 button[type="submit"]:hover {
   background-color: #e2611e;
